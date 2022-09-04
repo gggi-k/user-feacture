@@ -29,4 +29,5 @@ public class UserController {
     public UserResponse findByUserId(@PathVariable Long userId) {
         return userService.findByUserId(userId);
     }
+
 }
