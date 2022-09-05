@@ -22,11 +22,13 @@ public class SecurityConfig {
                                            LoginSuccessHandler successHandler,
                                            LoginFailureHandler failureHandler) throws Exception {
         return http
+                .httpBasic()
+                    .disable()
+                .csrf()
+                    .disable()
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
-                .httpBasic()
-                    .disable()
                 .formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/login")
@@ -34,7 +36,6 @@ public class SecurityConfig {
                     .passwordParameter(UserPrincipal.Fields.password)
                     .successHandler(successHandler)
                     .failureHandler(failureHandler)
-                    .permitAll()
                     .and()
                 .authorizeRequests()
                     .anyRequest().permitAll()

@@ -28,22 +28,24 @@ public class UserController {
         return userService.findByUserId(principal.getUserId());
     }
 
-    @Operation(summary = "나의정보 조회")
+    @Operation(summary = "패스워드 수정")
+    @PatchMapping("/my-info/password/{password}")
+    public void updatePassword(@PathVariable Long userId, @PathVariable String password, @AuthenticationPrincipal UserPrincipal principal) {
+        userDetailService.updatePassword(principal, password);
+    }
+
+    @Operation(summary = "사용자 조회")
     @GetMapping("/{userId}")
     public UserResponse findByUserId(@PathVariable Long userId) {
         return userService.findByUserId(userId);
     }
 
-    @Operation(summary = "나의정보 수정")
+    @Operation(summary = "사용자 수정")
     @PutMapping("/{userId}")
     public UserResponse update(@PathVariable Long userId) {
         return null;
     }
 
-    @Operation(summary = "패스워드 수정")
-    @PatchMapping("/{userId}/password/{password}")
-    public void updatePassword(@PathVariable Long userId, @PathVariable String password, @AuthenticationPrincipal UserPrincipal principal) {
-        userDetailService.updatePassword(principal, password);
-    }
+
 
 }
