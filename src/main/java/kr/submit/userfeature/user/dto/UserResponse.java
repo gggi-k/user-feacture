@@ -22,7 +22,6 @@ public class UserResponse {
     private final String email;
     @JsonView({UserView.List.class, UserView.MyInfo.class})
     private final String phoneNumber;
-
     @JsonView(UserView.List.class)
     private final RoleType roleType;
 

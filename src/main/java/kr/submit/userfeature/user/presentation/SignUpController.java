@@ -62,6 +62,7 @@ public class SignUpController {
     }
 
     @Operation(summary = "회원가입 이메일 전송")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/sign-up/send/email/{email}")
     public void sendVerifyNumberByEmail(@PathVariable String email) {
         verifyService.sendVerifyNumberByVerifyTypeValue(VerifyRequest.create()

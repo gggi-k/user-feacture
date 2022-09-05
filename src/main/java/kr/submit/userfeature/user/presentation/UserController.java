@@ -20,19 +20,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final SecurityUserDetailService userDetailService;
-
-    @Operation(summary = "사용자 조회")
-    @GetMapping("/my-info")
-    public UserResponse findByMyInfo(@AuthenticationPrincipal UserPrincipal principal) {
-        return userService.findByUserId(principal.getUserId());
-    }
-
-    @Operation(summary = "패스워드 수정")
-    @PatchMapping("/my-info/password/{password}")
-    public void updatePassword(@PathVariable Long userId, @PathVariable String password, @AuthenticationPrincipal UserPrincipal principal) {
-        userDetailService.updatePassword(principal, password);
-    }
 
     @Operation(summary = "사용자 조회")
     @GetMapping("/{userId}")
