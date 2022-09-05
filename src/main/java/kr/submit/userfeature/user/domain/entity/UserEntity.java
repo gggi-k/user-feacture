@@ -1,10 +1,12 @@
 package kr.submit.userfeature.user.domain.entity;
 
+import kr.submit.userfeature.core.jpa.entity.BaseEntity;
 import kr.submit.userfeature.user.domain.code.RoleType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -13,12 +15,12 @@ import javax.persistence.Table;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "USERS")
 @DynamicInsert
 @DynamicUpdate
-public class UserEntity {
+public class UserEntity extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -46,11 +48,4 @@ public class UserEntity {
     @Comment("역할유형")
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
-
-    @Builder.Default
-    @Type(type = "yes_no")
-    @Column
-    @ColumnDefault("'Y'")
-    @Comment("활성여부")
-    private boolean enabled = true;
 }

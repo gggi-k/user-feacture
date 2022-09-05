@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: test
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+
+springdoc:
+  swagger-ui:
+    path: /
+    enabled: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  api-docs:
+    enabled: true
+
+server:
+  port: 9000
+  error:
+    whitelabel:
+      enabled: false
+
+logging:
+  level:
+    org:
+      springframework:
+        http: debug
