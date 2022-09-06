@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAR_OPTS -jar heroku/*.jar
+web: java -Dserver.port=$PORT $JAR_OPTS -jar build/libs/user-feature-0.0.1-RELEASE.jar
