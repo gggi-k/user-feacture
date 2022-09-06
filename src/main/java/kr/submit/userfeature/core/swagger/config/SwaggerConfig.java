@@ -58,8 +58,8 @@ public class SwaggerConfig {
                     UsernamePasswordAuthenticationFilter usernamePasswordAuthenticationFilter = optionalFilter.get();
                     Operation operation = new Operation();
                     Schema<?> schema = new ObjectSchema()
-                            .addProperty(usernamePasswordAuthenticationFilter.getUsernameParameter(), new StringSchema())
-                            .addProperty(usernamePasswordAuthenticationFilter.getPasswordParameter(), new StringSchema());
+                            .addProperty(usernamePasswordAuthenticationFilter.getUsernameParameter(), new StringSchema().description("사용자아이디"))
+                            .addProperty(usernamePasswordAuthenticationFilter.getPasswordParameter(), new StringSchema().description("패스워드"));
                     RequestBody requestBody = new RequestBody().content(new Content().addMediaType(org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE, new MediaType().schema(schema)));
                     operation.requestBody(requestBody);
                     ApiResponses apiResponses = new ApiResponses();
