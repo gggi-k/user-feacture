@@ -18,7 +18,7 @@ spring:
     properties:
       mail:
         smtp:
-          connectiontimeout: 3000
+          connectiontimeout: 30000
           auth: ture
           starttls:
             enable: true
