@@ -10,6 +10,20 @@
     <option name="HIDE_BANNER" value="true" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+    <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndTriggerFile" />
+    <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+    <additionalParameters>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="EMAIL_USERNAME" />
+        <option name="value" value="userfeaturemail2022@gmail.com" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="EMAIL_PASSWORD" />
+        <option name="value" value="dniorsknqqvpnthd" />
+      </param>
+    </additionalParameters>
     <method v="2">
       <option name="Make" enabled="true" />
       <option name="LaunchBrowser.Before.Run" url="http://localhost:9000" />

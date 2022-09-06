@@ -72,7 +72,10 @@ public class UserResponse {
                 .phoneNumber(userEntity.getPhoneNumber())
                 .roleType(userEntity.getRoleType())
                 .version(userEntity.getVersion())
+                .createdAt(userEntity.getCreatedAt())
+                .createdBy(userEntity.getCreatedBy())
                 .updatedAt(userEntity.getUpdatedAt())
+                .updatedBy(userEntity.getUpdatedBy())
                 .build();
     }
 }

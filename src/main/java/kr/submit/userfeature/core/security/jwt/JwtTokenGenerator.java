@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 
 @RequiredArgsConstructor
@@ -27,14 +29,15 @@ public class JwtTokenGenerator {
                 .type(JOSEObjectType.JWT)
                 .build();
 
-
         final JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .subject(userPrincipal.getUsername())
                 .issueTime(new Date())
-                .expirationTime(Date.from(Instant.ofEpochSecond(Duration.ofHours(1).getSeconds())))
+                .expirationTime(Date.from(LocalDateTime.now().plusHours(1).toInstant(ZoneOffset.UTC)))
                 .claim(UserPrincipal.Fields.nickname, userPrincipal.getNickname())
                 .claim(UserPrincipal.Fields.email, userPrincipal.getEmail())
                 .claim(UserPrincipal.Fields.phoneNumber, userPrincipal.getPhoneNumber())
+                .claim(UserPrincipal.Fields.name, userPrincipal.getName())
+                .claim(UserPrincipal.Fields.roleType, userPrincipal.getRoleType())
                 .build();
 
         return jwsMinter.mint(jwsHeader, claimsSet.toPayload(), null).serialize();
