@@ -51,7 +51,7 @@ public class UserService {
         if(verifyService.findByVerifyUsageAndVerifyTypeAndVerifyValue(VerifyRequest.create()
             .setVerifyUsage(userRequest.getVerifyUsage())
             .setVerifyType(VerifyType.EMAIL)
-            .setVerifyTypeValue(userRequest.getEmail())).isVerified()) throw new NotVerifiedException("이메일이 인증이 안되었습니다");
+            .setVerifyTypeValue(userRequest.getEmail())).isNotVerified()) throw new NotVerifiedException("이메일이 인증이 안되었습니다");
 
         if(userDomainService.isDuplicateByPhoneNumber(userRequest.getPhoneNumber())) throw new DuplicateException("핸드폰번호가 중복됩니다");
 

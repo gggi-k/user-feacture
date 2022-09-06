@@ -33,7 +33,7 @@ public class UserRepositoryImpl implements PagingRepositoryTemplate<UserResponse
 
     @Override
     public List<UserResponse> findAllByQueryWithPaging(UserQuery query) {
-        return jpaQueryFactory.select(Projections.bean(
+        return jpaQueryFactory.select(Projections.fields(
                     UserResponse.class,
                     userEntity.userId,
                     userEntity.email,
@@ -43,7 +43,9 @@ public class UserRepositoryImpl implements PagingRepositoryTemplate<UserResponse
                     userEntity.enabled,
                     userEntity.roleType,
                     userEntity.createdAt,
-                    userEntity.updatedAt
+                    userEntity.createdBy,
+                    userEntity.updatedAt,
+                    userEntity.updatedBy
                 ))
                 .from(userEntity)
                 .where(whereClause(query))

@@ -73,11 +73,11 @@ public class VerifyEntity {
     private LocalDateTime updatedAt;
 
     public boolean isAfterCreatedAtByMinutes(long minutes) {
-        return this.createdAt.minusMinutes(minutes).isAfter(LocalDateTime.now());
+        return LocalDateTime.now().minusMinutes(minutes).isAfter(this.createdAt);
     }
 
-    public boolean equalsVerifyNumber(String verifyNumber) {
-        return this.verifyNumber.equals(verifyNumber);
+    public boolean notEqualsVerifyNumber(String verifyNumber) {
+        return !this.verifyNumber.equals(verifyNumber);
     }
 
     public void successVerified() {

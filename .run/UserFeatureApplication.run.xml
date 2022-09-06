@@ -13,6 +13,7 @@
     <method v="2">
       <option name="Make" enabled="true" />
       <option name="LaunchBrowser.Before.Run" url="http://localhost:9000" />
+      <option name="LaunchBrowser.Before.Run" url="http://localhost:9000/h2-console" />
     </method>
   </configuration>
 </component>

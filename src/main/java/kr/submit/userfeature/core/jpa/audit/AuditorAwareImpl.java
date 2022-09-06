@@ -4,7 +4,10 @@ import kr.submit.userfeature.core.security.dto.UserPrincipal;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -14,16 +17,20 @@ import java.util.Optional;
 @Component
 public class AuditorAwareImpl implements AuditorAware<Long> {
 
+    private static final String ANONYMOUS_USER = "anonymousUser";
+
+    private static boolean notEqualsAnonymousUser(String value) {
+        return !ANONYMOUS_USER.equalsIgnoreCase(value);
+    }
+
     @Override
     public Optional<Long> getCurrentAuditor() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(Objects.nonNull(authentication)) {
-            Object principal = authentication.getPrincipal();
-            if(principal instanceof UserPrincipal) {
-                return Optional.of(((UserPrincipal) principal).getUserId());
-            }
-        }
 
-        return Optional.empty();
+        return Optional.ofNullable(SecurityContextHolder.getContext())
+                .map(SecurityContext::getAuthentication)
+                .filter(Authentication::isAuthenticated)
+                .map(Authentication::getName)
+                .filter(AuditorAwareImpl::notEqualsAnonymousUser)
+                .map(Long::valueOf);
     }
 }

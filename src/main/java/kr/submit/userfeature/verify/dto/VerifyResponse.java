@@ -37,4 +37,8 @@ public class VerifyResponse {
                 .updatedAt(verifyEntity.getUpdatedAt())
                 .build();
     }
+
+    public boolean isNotVerified() {
+        return !isVerified();
+    }
 }

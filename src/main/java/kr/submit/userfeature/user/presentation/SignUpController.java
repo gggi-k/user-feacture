@@ -40,7 +40,9 @@ public class SignUpController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/sign-up")
     public UserResponse signUp(@Validated(UserView.Create.class) @JsonView(UserView.Create.class) @RequestBody UserRequest userRequest) {
-        return userService.create(userRequest.setRoleType(RoleType.USER));
+        return userService.create(userRequest
+                .setVerifyUsage(VerifyUsage.SIGNUP)
+                .setRoleType(RoleType.USER));
     }
 
     @Operation(summary = "회원가입 핸드폰 번호 중복확인")

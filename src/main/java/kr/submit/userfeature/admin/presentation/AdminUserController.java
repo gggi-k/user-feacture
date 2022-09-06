@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
 
-@IsAdmin
+//@IsAdmin
 @SwaggerApiResponses
 @Tag(name = "관리자 - 사용자")
 @Slf4j
@@ -66,9 +66,8 @@ public class AdminUserController {
     @Operation(summary = "관리자 - 사용자 수정")
     @PutMapping("/{userId}")
     public UserResponse update(
-                                @Parameter(description = "사용자아이디")
-                                @PathVariable Long userId,
-                               @Validated(UserView.Update.class) @JsonView(UserView.Update.class) @RequestBody UserRequest userRequest) {
+                            @Parameter(description = "사용자아이디") @PathVariable Long userId,
+                            @Validated(UserView.Update.class) @JsonView(UserView.Update.class) @RequestBody UserRequest userRequest) {
         return userService.update(userRequest.setUserId(userId)
                 .setVerifyUsage(VerifyUsage.UPDATE_USER)
                 .setRoleType(RoleType.USER)

@@ -30,5 +30,5 @@ public @interface PasswordPattern {
     int max() default Integer.MAX_VALUE;
 
     @OverridesAttribute(constraint = Pattern.class, name = "regexp")
-    String regexp() default "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]$";
+    String regexp() default "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
 }

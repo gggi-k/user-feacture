@@ -30,5 +30,5 @@ public @interface PhoneNumberPattern {
     int max() default Integer.MAX_VALUE;
 
     @OverridesAttribute(constraint = Pattern.class, name = "regexp")
-    String regexp() default "^[0-9]$";
+    String regexp() default "^[0-9]{11,}$";
 }
