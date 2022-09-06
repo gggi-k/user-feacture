@@ -15,12 +15,12 @@
     <additionalParameters>
       <param>
         <option name="enabled" value="true" />
-        <option name="name" value="EMAIL_USERNAME" />
+        <option name="name" value="MAIL_USERNAME" />
         <option name="value" value="userfeaturemail2022@gmail.com" />
       </param>
       <param>
         <option name="enabled" value="true" />
-        <option name="name" value="EMAIL_PASSWORD" />
+        <option name="name" value="MAIL_PASSWORD" />
         <option name="value" value="dniorsknqqvpnthd" />
       </param>
     </additionalParameters>
