@@ -18,8 +18,6 @@
 * 관리자 사용자 생성, 수정, 삭제
 
 
----
-
 ## Skill
 * Java11
 * H2
@@ -37,20 +35,17 @@
 * Jackson
 * Heroku
 
----
-
 ## ERD
 
----
 ## How To Run?
 1. gradle 빌드
 2. UserFeatureApplication 실행 (.run 폴더 밑에 실행설정 파일로 되어있어서 intellij 사용시 사용가능합니다)
 3. http://localhost:9000 이동시 자동 swagger 페이지 이동
----
+
+
 ## Interesting code
 * TODO 주석을 사용하여 보여주고 싶은 코드 노출
 
----
 ## LOCAL URL
 http://localhost:9000/swagger-ui/index.html
 ## HEROKU URL
