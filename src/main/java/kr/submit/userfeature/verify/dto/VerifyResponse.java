@@ -1,5 +1,6 @@
 package kr.submit.userfeature.verify.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import kr.submit.userfeature.verify.domain.code.VerifyType;
 import kr.submit.userfeature.verify.domain.code.VerifyUsage;
 import kr.submit.userfeature.verify.domain.entity.VerifyEntity;

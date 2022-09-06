@@ -1,6 +1,7 @@
 package kr.submit.userfeature.verify.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import io.swagger.v3.oas.annotations.media.Schema;
 import kr.submit.userfeature.verify.domain.code.VerifyType;
 import kr.submit.userfeature.verify.domain.code.VerifyUsage;
 import lombok.Getter;
@@ -23,10 +24,12 @@ public class VerifyRequest {
     @JsonView
     private VerifyType verifyType;
 
+    @Schema(description = "인증유형값(핸드폰번호, 이메일)")
     @NotBlank(groups = VerifyView.Verify.class)
     @JsonView(VerifyView.Verify.class)
     private String verifyTypeValue;
 
+    @Schema(description = "인증번호")
     @NotBlank(groups = {VerifyView.Verify.class, VerifyView.Number.class})
     @JsonView({VerifyView.Verify.class, VerifyView.Number.class})
     private String verifyNumber;
