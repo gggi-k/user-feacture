@@ -2,6 +2,7 @@ package kr.submit.userfeature.user.presentation;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.submit.userfeature.core.error.DuplicateException;
 import kr.submit.userfeature.core.swagger.annotation.SwaggerApiResponses;
@@ -44,20 +45,24 @@ public class SignUpController {
 
     @Operation(summary = "회원가입 핸드폰 번호 중복확인")
     @GetMapping("/sign-up/duplicate/phone-number/{phoneNumber}")
-    public void duplicateByPhoneNumber(@PathVariable String phoneNumber) {
+    public void duplicateByPhoneNumber(
+            @Parameter(description = "핸드폰번호")
+            @PathVariable String phoneNumber) {
         if(userDomainService.isDuplicateByPhoneNumber(phoneNumber)) throw new DuplicateException("핸드폰번호가 중복됩니다");
     }
 
     @Operation(summary = "회원가입 이메일 중복확인")
     @GetMapping("/sign-up/duplicate/email/{email}")
-    public void duplicateByEmail(@PathVariable String email) {
+    public void duplicateByEmail(
+            @Parameter(description = "이메일")
+            @PathVariable String email) {
         if(userDomainService.isDuplicateByEmail(email)) throw new DuplicateException("이메일이 중복됩니다");
     }
 
     @Operation(summary = "회원가입 핸드폰번호 전송")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/sign-up/send/phone-number/{phoneNumber}")
-    public void sendVerifyNumberByPhoneNumber(@PathVariable String phoneNumber) {
+    public void sendVerifyNumberByPhoneNumber(@Parameter(description = "핸드폰번호") @PathVariable String phoneNumber) {
         verifyService.sendVerifyNumberByVerifyTypeValue(VerifyRequest.create()
                 .setVerifyUsage(VerifyUsage.SIGNUP)
                 .setVerifyType(VerifyType.PHONE_NUMBER)
@@ -68,7 +73,7 @@ public class SignUpController {
     @Operation(summary = "회원가입 이메일 전송")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/sign-up/send/email/{email}")
-    public void sendVerifyNumberByEmail(@PathVariable String email) {
+    public void sendVerifyNumberByEmail(@Parameter(description = "이메일") @PathVariable String email) {
         verifyService.sendVerifyNumberByVerifyTypeValue(VerifyRequest.create()
                 .setVerifyUsage(VerifyUsage.SIGNUP)
                 .setVerifyType(VerifyType.EMAIL)

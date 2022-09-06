@@ -3,6 +3,7 @@ package kr.submit.userfeature.admin.presentation;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.submit.userfeature.core.error.DuplicateException;
 import kr.submit.userfeature.core.security.annotation.IsAdmin;
@@ -49,7 +50,7 @@ public class AdminUserController {
 
     @Operation(summary = "관리자 - 사용자 조회")
     @GetMapping("/{userId}")
-    public UserResponse findByUserId(@PathVariable Long userId) {
+    public UserResponse findByUserId(@Parameter(description = "사용자아이디") @PathVariable Long userId) {
         return userService.findByUserId(userId);
     }
 
@@ -62,7 +63,10 @@ public class AdminUserController {
 
     @Operation(summary = "관리자 - 사용자 수정")
     @PutMapping("/{userId}")
-    public UserResponse update(@PathVariable Long userId, @Validated(UserView.Update.class) @JsonView(UserView.Update.class) @RequestBody UserRequest userRequest) {
+    public UserResponse update(
+                                @Parameter(description = "사용자아이디")
+                                @PathVariable Long userId,
+                               @Validated(UserView.Update.class) @JsonView(UserView.Update.class) @RequestBody UserRequest userRequest) {
         return userService.update(userRequest.setUserId(userId)
                 .setVerifyUsage(VerifyUsage.UPDATE_USER)
                 .setRoleType(RoleType.USER)
@@ -72,26 +76,27 @@ public class AdminUserController {
     @Operation(summary = "관리자 - 사용자 삭제")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{userId}")
-    public void delete(@PathVariable Long userId) {
+    public void delete(@Parameter(description = "사용자아이디") @PathVariable Long userId) {
         userService.deleteByUserId(userId);
     }
 
     @Operation(summary = "관리자 - 핸드폰 번호 중복확인")
     @GetMapping("/duplicate/phone-number/{phoneNumber}")
-    public void duplicateByPhoneNumber(@PathVariable String phoneNumber) {
+    public void duplicateByPhoneNumber(@Parameter(description = "핸드폰번호") @PathVariable String phoneNumber) {
         if(userDomainService.isDuplicateByPhoneNumber(phoneNumber)) throw new DuplicateException("핸드폰번호가 중복됩니다");
     }
 
     @Operation(summary = "관리자 - 이메일 중복확인")
     @GetMapping("/duplicate/email/{email}")
-    public void duplicateByEmail(@PathVariable String email) {
+    public void duplicateByEmail(@Parameter(description = "이메일") @PathVariable String email) {
         if(userDomainService.isDuplicateByEmail(email)) throw new DuplicateException("이메일이 중복됩니다");
     }
 
     @Operation(summary = "관리자 - 핸드폰번호 전송")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/send/{verifyUsage:UPDATE_USER|CREATE_USER}/phone-number/{phoneNumber}")
-    public void sendVerifyNumberByPhoneNumber(@PathVariable VerifyUsage verifyUsage, @PathVariable String phoneNumber) {
+    public void sendVerifyNumberByPhoneNumber(@PathVariable VerifyUsage verifyUsage,
+                                              @Parameter(description = "핸드폰번호") @PathVariable String phoneNumber) {
         verifyService.sendVerifyNumberByVerifyTypeValue(VerifyRequest.create()
                 .setVerifyUsage(verifyUsage)
                 .setVerifyType(VerifyType.PHONE_NUMBER)
@@ -102,7 +107,8 @@ public class AdminUserController {
     @Operation(summary = "관리자 - 이메일 전송")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/send/{verifyUsage:UPDATE_USER|CREATE_USER}/email/{email}")
-    public void sendVerifyNumberByEmail(@PathVariable VerifyUsage verifyUsage, @PathVariable String email) {
+    public void sendVerifyNumberByEmail(@PathVariable VerifyUsage verifyUsage,
+                                        @Parameter(description = "이메일") @PathVariable String email) {
         verifyService.sendVerifyNumberByVerifyTypeValue(VerifyRequest.create()
                 .setVerifyUsage(VerifyUsage.SIGNUP)
                 .setVerifyType(VerifyType.EMAIL)

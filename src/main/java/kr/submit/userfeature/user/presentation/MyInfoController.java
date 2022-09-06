@@ -2,6 +2,7 @@ package kr.submit.userfeature.user.presentation;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.submit.userfeature.core.security.annotation.IsAuthenticated;
 import kr.submit.userfeature.core.security.dto.UserPrincipal;
@@ -38,7 +39,9 @@ public class MyInfoController {
 
     @Operation(summary = "패스워드 수정")
     @PatchMapping("/password/{password}")
-    public void updatePassword(@PathVariable String password, @AuthenticationPrincipal UserPrincipal principal) {
+    public void updatePassword(
+            @Parameter(description = "패스워드")
+            @PathVariable String password, @AuthenticationPrincipal UserPrincipal principal) {
         userDetailService.updatePassword(principal, password);
     }
 

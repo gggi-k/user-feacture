@@ -12,31 +12,31 @@ import lombok.*;
 @Builder(access = AccessLevel.PACKAGE)
 public class UserResponse {
 
-    @Schema(description = "사용자아이디")
+    @Schema(description = "사용자아이디", example = "123")
     @JsonView({UserView.List.class, UserView.MyInfo.class})
     private final Long userId;
 
-    @Schema(description = "닉네임")
+    @Schema(description = "닉네임", example = "닉네임입니당")
     @JsonView({UserView.List.class, UserView.MyInfo.class})
     private final String nickName;
 
-    @Schema(description = "이름")
+    @Schema(description = "이름", example = "나는야 홍길동")
     @JsonView({UserView.List.class, UserView.MyInfo.class})
     private final String name;
 
-    @Schema(description = "이메일")
+    @Schema(description = "이메일", example = "test@test.com")
     @JsonView({UserView.List.class, UserView.MyInfo.class})
     private final String email;
 
-    @Schema(description = "핸드폰번호")
+    @Schema(description = "핸드폰번호", example = "01900001111")
     @JsonView({UserView.List.class, UserView.MyInfo.class})
     private final String phoneNumber;
 
-    @Schema(description = "역할유형")
+    @Schema(description = "역할유형", example = "USER")
     @JsonView(UserView.List.class)
     private final RoleType roleType;
 
-    @Schema(description = "활성여부")
+    @Schema(description = "활성여부", example = "true")
     @JsonView(UserView.List.class)
     private final boolean enabled;
 

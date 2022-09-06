@@ -44,7 +44,7 @@
 ---
 ## How To Run?
 1. gradle 빌드
-2. UserFeatureApplication 실행
+2. UserFeatureApplication 실행 (.run 폴더 밑에 실행설정 파일로 되어있어서 intellij 사용시 사용가능합니다)
 3. http://localhost:9000 이동시 자동 swagger 페이지 이동
 ---
 ## Interesting code

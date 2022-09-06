@@ -24,12 +24,12 @@ public class VerifyRequest {
     @JsonView
     private VerifyType verifyType;
 
-    @Schema(description = "인증유형값(핸드폰번호, 이메일)")
+    @Schema(description = "인증유형값(핸드폰번호, 이메일)", example = "01012345678")
     @NotBlank(groups = VerifyView.Verify.class)
     @JsonView(VerifyView.Verify.class)
     private String verifyTypeValue;
 
-    @Schema(description = "인증번호")
+    @Schema(description = "인증번호", example = "123543")
     @NotBlank(groups = {VerifyView.Verify.class, VerifyView.Number.class})
     @JsonView({VerifyView.Verify.class, VerifyView.Number.class})
     private String verifyNumber;

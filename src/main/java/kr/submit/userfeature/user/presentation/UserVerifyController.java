@@ -2,6 +2,7 @@ package kr.submit.userfeature.user.presentation;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.submit.userfeature.core.swagger.annotation.SwaggerApiResponses;
 import kr.submit.userfeature.verify.application.VerifyService;
@@ -26,7 +27,7 @@ public class UserVerifyController {
     @Operation(summary = "아이디찾기 핸드폰번호 전송")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/forgot-id/send/phone-number/{phoneNumber}")
-    public void sendVerifyNumberByPhoneNumberForId(@PathVariable String phoneNumber) {
+    public void sendVerifyNumberByPhoneNumberForId(@Parameter(description = "핸드폰번호") @PathVariable String phoneNumber) {
         verifyService.sendVerifyNumberByVerifyTypeValue(VerifyRequest.create()
                 .setVerifyUsage(VerifyUsage.FORGOT_ID)
                 .setVerifyType(VerifyType.PHONE_NUMBER)
@@ -37,7 +38,7 @@ public class UserVerifyController {
     @Operation(summary = "아이디찾기 이메일 전송")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/forgot-id/send/email/{email}")
-    public void sendVerifyNumberByEmailForId(@PathVariable String email) {
+    public void sendVerifyNumberByEmailForId(@Parameter(description = "이메일") @PathVariable String email) {
         verifyService.sendVerifyNumberByVerifyTypeValue(VerifyRequest.create()
                 .setVerifyUsage(VerifyUsage.FORGOT_ID)
                 .setVerifyType(VerifyType.EMAIL)
@@ -70,7 +71,7 @@ public class UserVerifyController {
     @Operation(summary = "비밀번호찾기 핸드폰번호 전송")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/forgot-password/send/phone-number/{phoneNumber}")
-    public void sendVerifyNumberByPhoneNumberForPassword(@PathVariable String phoneNumber) {
+    public void sendVerifyNumberByPhoneNumberForPassword(@Parameter(description = "핸드폰번호") @PathVariable String phoneNumber) {
         verifyService.sendVerifyNumberByVerifyTypeValue(VerifyRequest.create()
                 .setVerifyUsage(VerifyUsage.FORGOT_ID)
                 .setVerifyType(VerifyType.PHONE_NUMBER)
@@ -81,7 +82,7 @@ public class UserVerifyController {
     @Operation(summary = "비밀번호찾기 이메일 전송")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/forgot-password/send/email/{email}")
-    public void sendVerifyNumberByEmailForPassword(@PathVariable String email) {
+    public void sendVerifyNumberByEmailForPassword(@Parameter(description = "이메일") @PathVariable String email) {
         verifyService.sendVerifyNumberByVerifyTypeValue(VerifyRequest.create()
                 .setVerifyUsage(VerifyUsage.FORGOT_ID)
                 .setVerifyType(VerifyType.EMAIL)
