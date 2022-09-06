@@ -16,6 +16,7 @@ public class UserQuery {
     private String email;
     private String phoneNumber;
     private String nickname;
+    private String name;
     private Boolean enabled;
     private RoleType roleType;
     private Pageable pageable;

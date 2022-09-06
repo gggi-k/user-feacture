@@ -10,15 +10,15 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     generate-ddl: true
+    show-sql: true
   mail:
     host: smtp.gmail.com
     port: 587
     username: userfeaturemail2022@gmail.com
-    password: qcmfffgqhjexaovn
+    password: dniorsknqqvpnthd
     properties:
       mail:
         smtp:
-          connectiontimeout: 30000
           auth: ture
           starttls:
             enable: true
@@ -43,6 +43,9 @@ server:
 
 logging:
   level:
+    root: info
+    kr:
+      submit: info
     org:
       springframework:
         http: debug

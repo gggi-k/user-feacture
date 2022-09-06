@@ -22,30 +22,35 @@ public class UserEntity extends BaseEntity {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "USER_ID")
     @Comment("사용자아이디")
     private Long userId;
 
-    @Column
+    @Column(name = "PASSWORD")
     @Comment("패스워드")
     private String password;
 
     @Setter
-    @Column
+    @Column(name = "NICKNAME")
     @Comment("닉네임")
-    private String nickName;
+    private String nickname;
 
     @Setter
-    @Column
+    @Column(name = "NAME")
+    @Comment("이름")
+    private String name;
+
+    @Setter
+    @Column(name = "EMAIL")
     @Comment("이메일")
     private String email;
 
     @Setter
-    @Column
+    @Column(name = "PHONE_NUMBER")
     @Comment("핸드폰번호")
     private String phoneNumber;
 
-    @Column
+    @Column(name = "ROLE_TYPE")
     @Comment("역할유형")
     @Enumerated(EnumType.STRING)
     private RoleType roleType;

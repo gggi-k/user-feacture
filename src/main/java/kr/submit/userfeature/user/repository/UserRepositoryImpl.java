@@ -38,7 +38,8 @@ public class UserRepositoryImpl implements PagingRepositoryTemplate<UserResponse
                     userEntity.userId,
                     userEntity.email,
                     userEntity.phoneNumber,
-                    userEntity.nickName,
+                    userEntity.nickname,
+                    userEntity.name,
                     userEntity.enabled,
                     userEntity.roleType,
                     userEntity.createdAt,
@@ -63,7 +64,11 @@ public class UserRepositoryImpl implements PagingRepositoryTemplate<UserResponse
         }
 
         if(StringUtils.hasText(query.getNickname())) {
-            booleanBuilder.and(userEntity.nickName.contains(query.getNickname()));
+            booleanBuilder.and(userEntity.nickname.contains(query.getNickname()));
+        }
+
+        if(StringUtils.hasText(query.getName())) {
+            booleanBuilder.and(userEntity.name.contains(query.getName()));
         }
 
         if(Objects.nonNull(query.getRoleType())) {

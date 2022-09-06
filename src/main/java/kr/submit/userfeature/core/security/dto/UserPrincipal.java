@@ -2,7 +2,6 @@ package kr.submit.userfeature.core.security.dto;
 
 import kr.submit.userfeature.user.domain.code.RoleType;
 import kr.submit.userfeature.user.domain.entity.UserEntity;
-import kr.submit.userfeature.user.dto.UserResponse;
 import lombok.*;
 import lombok.experimental.FieldNameConstants;
 import org.springframework.security.core.CredentialsContainer;
@@ -22,6 +21,7 @@ public class UserPrincipal implements UserDetails, CredentialsContainer {
     private final Long userId;
     private String password;
     private final String nickname;
+    private final String name;
     private final String email;
     private final String phoneNumber;
     private final boolean enabled;
@@ -33,7 +33,8 @@ public class UserPrincipal implements UserDetails, CredentialsContainer {
         return UserPrincipal.builder()
                 .userId(userEntity.getUserId())
                 .password(userEntity.getPassword())
-                .nickname(userEntity.getNickName())
+                .nickname(userEntity.getNickname())
+                .name(userEntity.getName())
                 .email(userEntity.getEmail())
                 .phoneNumber(userEntity.getPhoneNumber())
                 .enabled(userEntity.isEnabled())
@@ -41,7 +42,6 @@ public class UserPrincipal implements UserDetails, CredentialsContainer {
                 .authority(new SimpleGrantedAuthority(userEntity.getRoleType().getRoleNameWithRolePrefix()))
                 .build();
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

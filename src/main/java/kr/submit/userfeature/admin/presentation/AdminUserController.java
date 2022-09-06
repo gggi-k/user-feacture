@@ -6,17 +6,19 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.submit.userfeature.core.error.DuplicateException;
 import kr.submit.userfeature.core.security.annotation.IsAdmin;
+import kr.submit.userfeature.core.swagger.annotation.SwaggerApiResponses;
 import kr.submit.userfeature.user.application.UserService;
 import kr.submit.userfeature.user.domain.code.RoleType;
 import kr.submit.userfeature.user.domain.service.UserDomainService;
 import kr.submit.userfeature.user.dto.UserQuery;
 import kr.submit.userfeature.user.dto.UserRequest;
 import kr.submit.userfeature.user.dto.UserResponse;
-import kr.submit.userfeature.user.presentation.UserView;
+import kr.submit.userfeature.user.dto.UserView;
 import kr.submit.userfeature.verify.application.VerifyService;
 import kr.submit.userfeature.verify.domain.code.VerifyType;
 import kr.submit.userfeature.verify.domain.code.VerifyUsage;
 import kr.submit.userfeature.verify.dto.VerifyRequest;
+import kr.submit.userfeature.verify.dto.VerifyView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,7 +26,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
+
 @IsAdmin
+@SwaggerApiResponses
 @Tag(name = "관리자 - 사용자")
 @Slf4j
 @RequiredArgsConstructor
@@ -107,7 +112,10 @@ public class AdminUserController {
 
     @Operation(summary = "관리자 - 핸드폰번호 인증확인")
     @PostMapping("/verify/{verifyUsage:UPDATE_USER|CREATE_USER}/phone-number")
-    public void verifyByPhoneNumber(@PathVariable VerifyUsage verifyUsage, @RequestBody VerifyRequest verifyRequest) {
+    public void verifyByPhoneNumber(@PathVariable VerifyUsage verifyUsage,
+                                    @NotBlank(groups = VerifyView.Number.class)
+                                    @JsonView(VerifyView.Number.class)
+                                    @RequestBody VerifyRequest verifyRequest) {
         verifyService.verifyNumber(verifyRequest
                 .setVerifyUsage(verifyUsage)
                 .setVerifyType(VerifyType.PHONE_NUMBER));
@@ -115,7 +123,10 @@ public class AdminUserController {
 
     @Operation(summary = "관리자 - 이메일 인증확인")
     @PostMapping("/verify/{verifyUsage:UPDATE_USER|CREATE_USER}/email")
-    public void verifyByEmail(@PathVariable VerifyUsage verifyUsage, @RequestBody VerifyRequest verifyRequest) {
+    public void verifyByEmail(@PathVariable VerifyUsage verifyUsage,
+                              @NotBlank(groups = VerifyView.Number.class)
+                              @JsonView(VerifyView.Number.class)
+                              @RequestBody VerifyRequest verifyRequest) {
         verifyService.verifyNumber(verifyRequest
                 .setVerifyUsage(verifyUsage)
                 .setVerifyType(VerifyType.EMAIL));

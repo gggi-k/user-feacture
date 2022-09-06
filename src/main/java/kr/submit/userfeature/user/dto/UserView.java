@@ -1,4 +1,4 @@
-package kr.submit.userfeature.user.presentation;
+package kr.submit.userfeature.user.dto;
 
 public interface UserView {
 

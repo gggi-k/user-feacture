@@ -15,20 +15,20 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface PasswordPattern {
+public @interface PhoneNumberPattern {
 
-    String message() default "비밀번호형식에 맞지 않습니다";
+    String message() default "전화번호형식에 맞지 않습니다";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 
     @OverridesAttribute(constraint = Size.class, name = "min")
-    int min() default 8;
+    int min() default 11;
 
     @OverridesAttribute(constraint = Size.class, name = "max")
     int max() default Integer.MAX_VALUE;
 
     @OverridesAttribute(constraint = Pattern.class, name = "regexp")
-    String regexp() default "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]$";
+    String regexp() default "^[0-9]$";
 }

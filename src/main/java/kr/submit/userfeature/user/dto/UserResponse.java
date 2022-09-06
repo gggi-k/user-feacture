@@ -3,7 +3,6 @@ package kr.submit.userfeature.user.dto;
 import com.fasterxml.jackson.annotation.JsonView;
 import kr.submit.userfeature.user.domain.code.RoleType;
 import kr.submit.userfeature.user.domain.entity.UserEntity;
-import kr.submit.userfeature.user.presentation.UserView;
 import lombok.*;
 
 @Getter
@@ -17,6 +16,8 @@ public class UserResponse {
     @JsonView({UserView.List.class, UserView.MyInfo.class})
     private final String nickName;
     @JsonView({UserView.List.class, UserView.MyInfo.class})
+    private final String name;
+    @JsonView({UserView.List.class, UserView.MyInfo.class})
     private final String email;
     @JsonView({UserView.List.class, UserView.MyInfo.class})
     private final String phoneNumber;
@@ -28,7 +29,8 @@ public class UserResponse {
     public static UserResponse fromEntity(UserEntity userEntity) {
         return UserResponse.builder()
                 .userId(userEntity.getUserId())
-                .nickName(userEntity.getNickName())
+                .nickName(userEntity.getNickname())
+                .name(userEntity.getName())
                 .email(userEntity.getEmail())
                 .phoneNumber(userEntity.getPhoneNumber())
                 .roleType(userEntity.getRoleType())

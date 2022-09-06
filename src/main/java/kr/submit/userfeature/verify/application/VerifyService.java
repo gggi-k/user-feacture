@@ -9,12 +9,14 @@ import kr.submit.userfeature.verify.dto.VerifyResponse;
 import kr.submit.userfeature.verify.repository.VerifyRepository;
 import kr.submit.userfeature.verify.strategy.VerifyTypeStrategy;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.Random;
 
+@Slf4j
 @Transactional
 @RequiredArgsConstructor
 @Service

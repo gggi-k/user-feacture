@@ -4,24 +4,27 @@ import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.submit.userfeature.core.error.DuplicateException;
+import kr.submit.userfeature.core.swagger.annotation.SwaggerApiResponses;
 import kr.submit.userfeature.user.domain.service.UserDomainService;
 import kr.submit.userfeature.user.dto.UserRequest;
 import kr.submit.userfeature.user.dto.UserResponse;
 import kr.submit.userfeature.user.application.UserService;
 import kr.submit.userfeature.user.domain.code.RoleType;
+import kr.submit.userfeature.user.dto.UserView;
 import kr.submit.userfeature.verify.application.VerifyService;
 import kr.submit.userfeature.verify.domain.code.VerifyType;
 import kr.submit.userfeature.verify.domain.code.VerifyUsage;
 import kr.submit.userfeature.verify.dto.VerifyRequest;
-import kr.submit.userfeature.verify.dto.VerifyResponse;
+import kr.submit.userfeature.verify.dto.VerifyView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotBlank;
 
+@SwaggerApiResponses
 @Tag(name = "회원가입")
 @Slf4j
 @RequiredArgsConstructor
@@ -75,7 +78,9 @@ public class SignUpController {
 
     @Operation(summary = "회원가입 핸드폰번호 인증확인")
     @PostMapping("/sign-up/verify/phone-number")
-    public void verifyByPhoneNumber(@RequestBody VerifyRequest verifyRequest) {
+    public void verifyByPhoneNumber(@NotBlank(groups = VerifyView.Verify.class)
+                                    @JsonView(VerifyView.Verify.class)
+                                    @RequestBody VerifyRequest verifyRequest) {
         verifyService.verifyNumber(verifyRequest
                 .setVerifyUsage(VerifyUsage.SIGNUP)
                 .setVerifyType(VerifyType.PHONE_NUMBER));
@@ -83,7 +88,9 @@ public class SignUpController {
 
     @Operation(summary = "회원가입 이메일 인증확인")
     @PostMapping("/sign-up/verify/email")
-    public void verifyByEmail(@RequestBody VerifyRequest verifyRequest) {
+    public void verifyByEmail(@NotBlank(groups = VerifyView.Verify.class)
+                              @JsonView(VerifyView.Verify.class)
+                                @RequestBody VerifyRequest verifyRequest) {
         verifyService.verifyNumber(verifyRequest
                 .setVerifyUsage(VerifyUsage.SIGNUP)
                 .setVerifyType(VerifyType.EMAIL));

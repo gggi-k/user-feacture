@@ -64,7 +64,8 @@ public class UserService {
         return UserResponse.fromEntity(userRepository.save(UserEntity.builder()
                 .userId(userRequest.getUserId())
                 .password(passwordEncoder.encode(userRequest.getPassword()))
-                .nickName(userRequest.getNickname())
+                .nickname(userRequest.getNickname())
+                .name(userRequest.getName())
                 .phoneNumber(userRequest.getPhoneNumber())
                 .email(userRequest.getEmail())
                 .roleType(userRequest.getRoleType())
@@ -94,7 +95,8 @@ public class UserService {
         }
 
         userEntity.setEmail(userRequest.getEmail());
-        userEntity.setNickName(userRequest.getNickname());
+        userEntity.setNickname(userRequest.getNickname());
+        userEntity.setName(userEntity.getName());
         userEntity.setPhoneNumber(userRequest.getPhoneNumber());
 
         return UserResponse.fromEntity(userRepository.save(userEntity));
