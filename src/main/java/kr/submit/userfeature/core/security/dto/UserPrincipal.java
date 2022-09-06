@@ -2,6 +2,7 @@ package kr.submit.userfeature.core.security.dto;
 
 import kr.submit.userfeature.user.domain.code.RoleType;
 import kr.submit.userfeature.user.domain.entity.UserEntity;
+import kr.submit.userfeature.user.dto.UserResponse;
 import lombok.*;
 import lombok.experimental.FieldNameConstants;
 import org.springframework.security.core.CredentialsContainer;

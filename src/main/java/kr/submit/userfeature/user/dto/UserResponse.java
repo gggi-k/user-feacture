@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 import kr.submit.userfeature.user.domain.code.RoleType;
 import kr.submit.userfeature.user.domain.entity.UserEntity;
 import kr.submit.userfeature.user.presentation.UserView;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
+@Setter(AccessLevel.PRIVATE)
 @ToString
 @Builder(access = AccessLevel.PACKAGE)
 public class UserResponse {
@@ -24,6 +22,8 @@ public class UserResponse {
     private final String phoneNumber;
     @JsonView(UserView.List.class)
     private final RoleType roleType;
+
+    private final boolean enabled;
 
     public static UserResponse fromEntity(UserEntity userEntity) {
         return UserResponse.builder()

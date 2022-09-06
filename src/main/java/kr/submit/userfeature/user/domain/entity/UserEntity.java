@@ -2,10 +2,7 @@ package kr.submit.userfeature.user.domain.entity;
 
 import kr.submit.userfeature.core.jpa.entity.BaseEntity;
 import kr.submit.userfeature.user.domain.code.RoleType;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.*;
 
@@ -20,6 +17,7 @@ import javax.persistence.Table;
 @Table(name = "USERS")
 @DynamicInsert
 @DynamicUpdate
+@SQLDelete(sql = "UPDATE USERS SET ENABLED = 'N' WHERE USER_ID = ?")
 public class UserEntity extends BaseEntity {
 
     @Id
@@ -32,14 +30,17 @@ public class UserEntity extends BaseEntity {
     @Comment("패스워드")
     private String password;
 
+    @Setter
     @Column
     @Comment("닉네임")
     private String nickName;
 
+    @Setter
     @Column
     @Comment("이메일")
     private String email;
 
+    @Setter
     @Column
     @Comment("핸드폰번호")
     private String phoneNumber;

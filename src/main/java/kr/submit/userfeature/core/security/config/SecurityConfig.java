@@ -5,6 +5,7 @@ import kr.submit.userfeature.core.security.handler.LoginFailureHandler;
 import kr.submit.userfeature.core.security.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @EnableWebSecurity
 public class SecurityConfig {
 

@@ -1,5 +1,6 @@
 package kr.submit.userfeature.user.presentation;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.submit.userfeature.core.error.DuplicateException;
@@ -34,7 +35,7 @@ public class SignUpController {
     @Operation(summary = "회원가입")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/sign-up")
-    public UserResponse signUp(@Validated(UserView.Create.class) UserRequest userRequest) {
+    public UserResponse signUp(@Validated(UserView.Create.class) @JsonView(UserView.Create.class) @RequestBody UserRequest userRequest) {
         return userService.create(userRequest.setRoleType(RoleType.USER));
     }
 
@@ -71,7 +72,6 @@ public class SignUpController {
                 .setVerifyTypeValue(email)
         );
     }
-
 
     @Operation(summary = "회원가입 핸드폰번호 인증확인")
     @PostMapping("/sign-up/verify/phone-number")

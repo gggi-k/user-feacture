@@ -25,6 +25,7 @@ ext {
     snippetsDir = file("build/generated-snippets")
     jwtVersion = "9.24.3"
     springdocVersion = "1.6.11"
+    queryDslVersion = "5.0.0"
 }
 
 dependencies {
@@ -43,8 +44,11 @@ dependencies {
     implementation "org.springdoc:springdoc-openapi-security:${springdocVersion}"
     implementation "org.springdoc:springdoc-openapi-hateoas:${springdocVersion}"
 
-
-
+    implementation "com.querydsl:querydsl-core:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}:jpa"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
     compileOnly "org.projectlombok:lombok"
     developmentOnly "org.springframework.boot:spring-boot-devtools"

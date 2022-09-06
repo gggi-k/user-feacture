@@ -15,20 +15,20 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface EmailPattern {
+public @interface PasswordPattern {
 
-    String message() default "이메일형식에 맞지 않습니다";
+    String message() default "비밀번호형식에 맞지 않습니다";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 
     @OverridesAttribute(constraint = Size.class, name = "min")
-    int min() default 4;
+    int min() default 0;
 
     @OverridesAttribute(constraint = Size.class, name = "max")
-    int max() default 255;
+    int max() default Integer.MAX_VALUE;
 
     @OverridesAttribute(constraint = Pattern.class, name = "regexp")
-    String regexp() default ".+[@][a-zA-Z]+[.][a-zA-Z]+";
+    String regexp();
 }
