@@ -23,6 +23,8 @@ import kr.submit.userfeature.verify.dto.VerifyView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +46,8 @@ public class AdminUserController {
 
     @Operation(summary = "관리자 - 사용자 목록 조회")
     @GetMapping
-    public Page<UserResponse> findAllByQuery(final UserQuery userQuery) {
-        return userService.findAllByQuery(userQuery);
+    public Page<UserResponse> findAllByQuery(final UserQuery userQuery, @Parameter(hidden = true) @PageableDefault Pageable pageable) {
+        return userService.findAllByQuery(userQuery.setPageable(pageable));
     }
 
     @Operation(summary = "관리자 - 사용자 조회")

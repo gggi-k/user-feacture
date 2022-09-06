@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.springframework.data.domain.Pageable;
 
+@Accessors(chain = true)
 @NoArgsConstructor
 @Getter
 @Setter
@@ -32,5 +34,6 @@ public class UserQuery {
     @Schema(description = "역할유형")
     private RoleType roleType;
 
+    @Schema(hidden = true)
     private Pageable pageable;
 }
