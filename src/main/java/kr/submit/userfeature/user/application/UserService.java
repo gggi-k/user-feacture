@@ -46,6 +46,16 @@ public class UserService {
         return UserResponse.fromEntity(userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
     }
 
+    @Transactional(readOnly = true)
+    public UserResponse findByEmail(String email) {
+        return UserResponse.fromEntity(userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
+    }
+
+    @Transactional(readOnly = true)
+    public UserResponse findByPhoneNumber(String phoneNumber) {
+        return UserResponse.fromEntity(userRepository.findByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
+    }
+
     public UserResponse create(UserRequest userRequest) {
 
         if(userDomainService.isDuplicateByEmail(userRequest.getEmail())) throw new DuplicateException("이메일이 중복됩니다");

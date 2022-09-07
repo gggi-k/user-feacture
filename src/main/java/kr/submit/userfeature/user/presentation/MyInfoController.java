@@ -105,21 +105,23 @@ public class MyInfoController {
 
     @Operation(summary = "나의정보 - 핸드폰번호 인증확인")
     @PostMapping("/verify/phone-number")
-    public Long verifyByPhoneNumber(@NotBlank(groups = VerifyView.Number.class)
-                                    @JsonView(VerifyView.Number.class)
+    public Long verifyByPhoneNumber(@NotBlank(groups = VerifyView.Verify.class)
+                                    @JsonView(VerifyView.Verify.class)
                                     @RequestBody VerifyRequest verifyRequest) {
         return verifyService.verifyNumber(verifyRequest
                 .setVerifyUsage(VerifyUsage.MY_INFO)
-                .setVerifyType(VerifyType.PHONE_NUMBER)).getVerifyId();
+                .setVerifyType(VerifyType.PHONE_NUMBER))
+                .getVerifyId();
     }
 
     @Operation(summary = "나의정보 - 이메일 인증확인")
     @PostMapping("/verify/email")
-    public Long verifyByEmail(@NotBlank(groups = VerifyView.Number.class)
-                              @JsonView(VerifyView.Number.class)
+    public Long verifyByEmail(@NotBlank(groups = VerifyView.Verify.class)
+                              @JsonView(VerifyView.Verify.class)
                               @RequestBody VerifyRequest verifyRequest) {
-        return verifyService.verifyNumber(verifyRequest
+        return verifyService.verifyNumber(VerifyRequest.create()
                 .setVerifyUsage(VerifyUsage.MY_INFO)
-                .setVerifyType(VerifyType.EMAIL)).getVerifyId();
+                .setVerifyType(VerifyType.EMAIL))
+                .getVerifyId();
     }
 }
