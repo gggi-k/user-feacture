@@ -8,6 +8,11 @@
 * 요구사항에 추가로 팍팍넣었습니다.
 **메일만발송되고, SMS발송안됨!**
 
+## LOCAL URL
+http://localhost:9000/swagger-ui/index.html
+## HEROKU URL
+https://user-features.herokuapp.com/swagger-ui/index.html
+
 ![0005](https://user-images.githubusercontent.com/53999997/188876090-b882dca2-86d3-489f-8911-bb239f87b420.jpg)
 
 ## Feature
@@ -106,8 +111,3 @@ UPDATED_AT: 갱신일시
 * jwt 설정
 * 이메일, 전화번호에 따른 전략패턴 도입
 등등 
-
-## LOCAL URL
-http://localhost:9000/swagger-ui/index.html
-## HEROKU URL
-https://user-features.herokuapp.com/swagger-ui/index.html
