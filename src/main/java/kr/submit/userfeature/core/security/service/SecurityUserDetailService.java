@@ -34,6 +34,6 @@ public class SecurityUserDetailService implements UserDetailsService, UserDetail
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return UserPrincipal.fromEntity(userRepository.findById(Long.valueOf(username)).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
+        return UserPrincipal.fromEntity(userRepository.findByUserIdAndEnabled(Long.valueOf(username)).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
     }
 }

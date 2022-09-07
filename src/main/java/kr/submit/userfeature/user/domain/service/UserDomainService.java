@@ -14,11 +14,11 @@ public class UserDomainService {
 
     @Transactional(readOnly = true)
     public boolean isDuplicateByEmail(String email) {
-        return userRepository.existsByEmail(email);
+        return userRepository.existsByEmailAndEnabled(email);
     }
 
     @Transactional(readOnly = true)
     public boolean isDuplicateByPhoneNumber(String phoneNumber) {
-        return userRepository.existsByPhoneNumber(phoneNumber);
+        return userRepository.existsByPhoneNumberAndEnabled(phoneNumber);
     }
 }

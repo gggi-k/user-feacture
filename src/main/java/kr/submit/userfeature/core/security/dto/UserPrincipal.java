@@ -33,6 +33,7 @@ public class UserPrincipal implements UserDetails, CredentialsContainer {
     private final Set<GrantedAuthority> authorities;
 
     public static UserPrincipal fromEntity(UserEntity userEntity) {
+        final RoleType roleType = userEntity.getRoleType();
         return UserPrincipal.builder()
                 .userId(userEntity.getUserId())
                 .password(userEntity.getPassword())
@@ -41,8 +42,8 @@ public class UserPrincipal implements UserDetails, CredentialsContainer {
                 .email(userEntity.getEmail())
                 .phoneNumber(userEntity.getPhoneNumber())
                 .enabled(userEntity.isEnabled())
-                .roleType(userEntity.getRoleType())
-                .authority(new SimpleGrantedAuthority(userEntity.getRoleType().getRoleNameWithRolePrefix()))
+                .roleType(roleType)
+                .authorities(fromRoleType(roleType))
                 .build();
     }
 
@@ -55,8 +56,12 @@ public class UserPrincipal implements UserDetails, CredentialsContainer {
                 .email(claimsSet.getStringClaim(Fields.email))
                 .phoneNumber(claimsSet.getStringClaim(Fields.phoneNumber))
                 .roleType(roleType)
-                .authority(new SimpleGrantedAuthority(roleType.getRoleNameWithRolePrefix()))
+                .authorities(fromRoleType(roleType))
                 .build();
+    }
+
+    public static Set<GrantedAuthority> fromRoleType(RoleType roleType) {
+        return Set.of(new SimpleGrantedAuthority(roleType.getRoleNameWithRolePrefix()));
     }
 
     @Override

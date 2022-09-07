@@ -13,13 +13,15 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long>, PagingRepositoryTemplate<UserResponse, UserQuery> {
 
-    boolean existsByEmail(String email);
+    boolean existsByEmailAndEnabled(String email);
 
-    boolean existsByPhoneNumber(String phoneNumber);
+    boolean existsByPhoneNumberAndEnabled(String phoneNumber);
 
-    Optional<UserEntity> findByEmail(String email);
+    Optional<UserEntity> findByUserIdAndEnabled(Long userId);
 
-    Optional<UserEntity> findByPhoneNumber(String phoneNumber);
+    Optional<UserEntity> findByEmailAndEnabled(String email);
+
+    Optional<UserEntity> findByPhoneNumberAndEnabled(String phoneNumber);
 
     @Modifying
     @Query("update UserEntity set password = :password, updatedBy = ?#{principal?.userId}, updatedAt = current_timestamp where userId = :userId")
