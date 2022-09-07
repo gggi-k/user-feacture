@@ -1,4 +1,4 @@
-package kr.submit.userfeature.core.security.jwt;
+package kr.submit.userfeature.core.security.jwt.token;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JOSEObjectType;

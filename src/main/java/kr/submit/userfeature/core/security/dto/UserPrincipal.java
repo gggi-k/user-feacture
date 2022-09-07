@@ -1,5 +1,7 @@
 package kr.submit.userfeature.core.security.dto;
 
+import com.nimbusds.jwt.JWTClaimNames;
+import com.nimbusds.jwt.JWTClaimsSet;
 import kr.submit.userfeature.user.domain.code.RoleType;
 import kr.submit.userfeature.user.domain.entity.UserEntity;
 import lombok.*;
@@ -9,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.Set;
 
@@ -40,6 +43,19 @@ public class UserPrincipal implements UserDetails, CredentialsContainer {
                 .enabled(userEntity.isEnabled())
                 .roleType(userEntity.getRoleType())
                 .authority(new SimpleGrantedAuthority(userEntity.getRoleType().getRoleNameWithRolePrefix()))
+                .build();
+    }
+
+    public static UserPrincipal fromJwtClaimSet(JWTClaimsSet claimsSet) throws ParseException {
+        final RoleType roleType = RoleType.valueOf(claimsSet.getStringClaim(Fields.roleType));
+        return UserPrincipal.builder()
+                .userId(Long.valueOf(claimsSet.getSubject()))
+                .nickname(claimsSet.getStringClaim(Fields.nickname))
+                .name(claimsSet.getStringClaim(Fields.name))
+                .email(claimsSet.getStringClaim(Fields.email))
+                .phoneNumber(claimsSet.getStringClaim(Fields.phoneNumber))
+                .roleType(roleType)
+                .authority(new SimpleGrantedAuthority(roleType.getRoleNameWithRolePrefix()))
                 .build();
     }
 

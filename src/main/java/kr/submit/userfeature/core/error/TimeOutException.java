@@ -3,7 +3,7 @@ package kr.submit.userfeature.core.error;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.FORBIDDEN)
+@ResponseStatus(HttpStatus.REQUEST_TIMEOUT)
 public class TimeOutException extends RuntimeException {
 
     public TimeOutException(String message) {

@@ -2,7 +2,7 @@ package kr.submit.userfeature.core.security.handler;
 
 import com.nimbusds.jose.JOSEException;
 import kr.submit.userfeature.core.security.dto.UserPrincipal;
-import kr.submit.userfeature.core.security.jwt.JwtTokenGenerator;
+import kr.submit.userfeature.core.security.jwt.token.JwtTokenGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.MediaType;

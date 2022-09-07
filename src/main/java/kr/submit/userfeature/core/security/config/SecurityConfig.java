@@ -3,6 +3,7 @@ package kr.submit.userfeature.core.security.config;
 import kr.submit.userfeature.core.security.dto.UserPrincipal;
 import kr.submit.userfeature.core.security.handler.LoginFailureHandler;
 import kr.submit.userfeature.core.security.handler.LoginSuccessHandler;
+import kr.submit.userfeature.core.security.jwt.filter.BearerJwtTokenAuthenticationFilter;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @EnableWebSecurity
@@ -21,6 +23,7 @@ public class SecurityConfig {
     @Role(BeanDefinition.ROLE_APPLICATION)
     @Description("security config filter")
     public SecurityFilterChain filterChain(HttpSecurity http,
+                                           BearerJwtTokenAuthenticationFilter authenticationFilter,
                                            LoginSuccessHandler successHandler,
                                            LoginFailureHandler failureHandler) throws Exception {
         return http
@@ -35,6 +38,7 @@ public class SecurityConfig {
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/login")
