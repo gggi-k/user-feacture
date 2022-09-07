@@ -74,7 +74,6 @@ public class UserService {
 //                .setVerifyTypeValue(userRequest.getPhoneNumber())).isVerified()) throw new NotVerifiedException("핸드폰번호가 인증이 안되었습니다");
 
         return UserResponse.fromEntity(userRepository.save(UserEntity.builder()
-                .userId(userRequest.getUserId())
                 .password(passwordEncoder.encode(userRequest.getPassword()))
                 .nickname(userRequest.getNickname())
                 .name(userRequest.getName())
