@@ -38,7 +38,7 @@ import java.util.Optional;
 @Import(SpringDocConfiguration.class)
 @SecurityScheme(type = SecuritySchemeType.HTTP, name = "jwtToken", scheme = "bearer", bearerFormat = "JWT")
 @OpenAPIDefinition(
-    info = @Info(title = "사용자기능", description = "사용자 로그인,회원가입 등<br> 관리자계정 - 아이디: 2, 비번: admin<br> 일반계정 - 아이디: 1, 비번: user", version = "1.0.0"),
+    info = @Info(title = "사용자기능", description = "사용자 로그인,회원가입 등<br> 관리자계정 - 아이디: 1000, 비번: admin<br> 일반계정 - 아이디: 1001, 비번: user", version = "1.0.0"),
     security = @SecurityRequirement(name = "jwtToken")
 )
 public class SwaggerConfig {

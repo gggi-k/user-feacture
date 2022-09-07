@@ -65,8 +65,8 @@ https://user-features.herokuapp.com/swagger-ui/index.html
 ## 주의사항
 * 전화번호는 발송안됩니다, 이메일은 실제로 발송되고있습니다
 * 기본적으로 들어간 계정정보입니다.<br>
-  **관리자계정 - 아이디: 2, 비번: admin
-  일반계정 - 아이디: 1, 비번: user**
+  **관리자계정 - 아이디: 1000, 비번: admin
+  일반계정 - 아이디: 1001, 비번: user**
 
 ## ERD
 
