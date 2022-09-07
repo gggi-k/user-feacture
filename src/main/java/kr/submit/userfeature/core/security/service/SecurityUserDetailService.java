@@ -24,16 +24,15 @@ public class SecurityUserDetailService implements UserDetailsService, UserDetail
 
     @Override
     public UserDetails updatePassword(UserDetails user, String newPassword) {
-
-        if(passwordEncoder.matches(user.getPassword(), newPassword)) throw new BadRequestException("같은 비밀번호로 변경이 불가능합니다");
-
-        return UserPrincipal.fromEntity(userRepository.changePassword(Long.valueOf(user.getUsername()), passwordEncoder.encode(newPassword))
-                .orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지 않습니다")));
+        final UserDetails userDetails = this.loadUserByUsername(user.getUsername());
+        if(passwordEncoder.matches(userDetails.getPassword(), newPassword)) throw new BadRequestException("같은 비밀번호로 변경이 불가능합니다");
+        userRepository.changePassword(Long.valueOf(user.getUsername()), passwordEncoder.encode(newPassword));
+        return userDetails;
     }
 
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return UserPrincipal.fromEntity(userRepository.findByUserIdAndEnabled(Long.valueOf(username)).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
+        return UserPrincipal.fromEntity(userRepository.findByUserIdAndEnabledTrue(Long.valueOf(username)).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
     }
 }

@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.submit.userfeature.core.error.DuplicateException;
 import kr.submit.userfeature.core.security.annotation.IsAuthenticated;
 import kr.submit.userfeature.core.security.dto.UserPrincipal;
+import kr.submit.userfeature.core.security.jwt.token.JwtTokenGenerator;
 import kr.submit.userfeature.core.security.service.SecurityUserDetailService;
 import kr.submit.userfeature.core.swagger.annotation.SwaggerApiResponses;
 import kr.submit.userfeature.user.application.UserService;
@@ -42,6 +43,7 @@ public class MyInfoController {
     private final UserDomainService userDomainService;
     private final SecurityUserDetailService userDetailService;
     private final VerifyService verifyService;
+    private final JwtTokenGenerator jwtTokenGenerator;
 
     @Operation(summary = "나의정보 조회")
     @GetMapping
@@ -119,7 +121,7 @@ public class MyInfoController {
     public Long verifyByEmail(@NotBlank(groups = VerifyView.Verify.class)
                               @JsonView(VerifyView.Verify.class)
                               @RequestBody VerifyRequest verifyRequest) {
-        return verifyService.verifyNumber(VerifyRequest.create()
+        return verifyService.verifyNumber(verifyRequest
                 .setVerifyUsage(VerifyUsage.MY_INFO)
                 .setVerifyType(VerifyType.EMAIL))
                 .getVerifyId();

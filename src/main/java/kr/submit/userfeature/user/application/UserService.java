@@ -43,17 +43,17 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserResponse findByUserId(Long userId) {
-        return UserResponse.fromEntity(userRepository.findByUserIdAndEnabled(userId).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
+        return UserResponse.fromEntity(userRepository.findByUserIdAndEnabledTrue(userId).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
     }
 
     @Transactional(readOnly = true)
     public UserResponse findByEmail(String email) {
-        return UserResponse.fromEntity(userRepository.findByEmailAndEnabled(email).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
+        return UserResponse.fromEntity(userRepository.findByEmailAndEnabledTrue(email).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
     }
 
     @Transactional(readOnly = true)
     public UserResponse findByPhoneNumber(String phoneNumber) {
-        return UserResponse.fromEntity(userRepository.findByPhoneNumberAndEnabled(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
+        return UserResponse.fromEntity(userRepository.findByPhoneNumberAndEnabledTrue(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다")));
     }
 
     public UserResponse create(UserRequest userRequest) {
@@ -85,7 +85,7 @@ public class UserService {
     }
 
     public UserResponse update(UserRequest userRequest) {
-        final UserEntity userEntity = userRepository.findByUserIdAndEnabled(userRequest.getUserId()).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다"));
+        final UserEntity userEntity = userRepository.findByUserIdAndEnabledTrue(userRequest.getUserId()).orElseThrow(() -> new UsernameNotFoundException("해당하는 사용자가 존재하지않습니다"));
 
         if(!Objects.equals(userEntity.getEmail(), userRequest.getEmail())) {
             if(userDomainService.isDuplicateByEmail(userRequest.getEmail())) throw new DuplicateException("이메일이 중복됩니다");

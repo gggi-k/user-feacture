@@ -13,18 +13,18 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long>, PagingRepositoryTemplate<UserResponse, UserQuery> {
 
-    boolean existsByEmailAndEnabled(String email);
+    boolean existsByEmailAndEnabledTrue(String email);
 
-    boolean existsByPhoneNumberAndEnabled(String phoneNumber);
+    boolean existsByPhoneNumberAndEnabledTrue(String phoneNumber);
 
-    Optional<UserEntity> findByUserIdAndEnabled(Long userId);
+    Optional<UserEntity> findByUserIdAndEnabledTrue(Long userId);
 
-    Optional<UserEntity> findByEmailAndEnabled(String email);
+    Optional<UserEntity> findByEmailAndEnabledTrue(String email);
 
-    Optional<UserEntity> findByPhoneNumberAndEnabled(String phoneNumber);
+    Optional<UserEntity> findByPhoneNumberAndEnabledTrue(String phoneNumber);
 
     @Modifying
     @Query("update UserEntity set password = :password, updatedBy = ?#{principal?.userId}, updatedAt = current_timestamp where userId = :userId")
-    Optional<UserEntity> changePassword(@Param("userId") Long userId, @Param("password") String password);
+    int changePassword(@Param("userId") Long userId, @Param("password") String password);
 
 }
