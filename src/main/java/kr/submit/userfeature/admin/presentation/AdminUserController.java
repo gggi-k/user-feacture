@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
 
-//@IsAdmin
+@IsAdmin
 @SwaggerApiResponses
 @Tag(name = "관리자 - 사용자")
 @Slf4j
@@ -111,7 +111,7 @@ public class AdminUserController {
     public void sendVerifyNumberByEmail(@PathVariable VerifyUsage verifyUsage,
                                         @Parameter(description = "이메일") @PathVariable String email) {
         verifyService.sendVerifyNumberByVerifyTypeValue(VerifyRequest.create()
-                .setVerifyUsage(VerifyUsage.SIGNUP)
+                .setVerifyUsage(verifyUsage)
                 .setVerifyType(VerifyType.EMAIL)
                 .setVerifyTypeValue(email)
         );
@@ -119,23 +119,23 @@ public class AdminUserController {
 
     @Operation(summary = "관리자 - 핸드폰번호 인증확인")
     @PostMapping("/verify/{verifyUsage:UPDATE_USER|CREATE_USER}/phone-number")
-    public void verifyByPhoneNumber(@PathVariable VerifyUsage verifyUsage,
+    public Long verifyByPhoneNumber(@PathVariable VerifyUsage verifyUsage,
                                     @NotBlank(groups = VerifyView.Number.class)
                                     @JsonView(VerifyView.Number.class)
                                     @RequestBody VerifyRequest verifyRequest) {
-        verifyService.verifyNumber(verifyRequest
+        return verifyService.verifyNumber(verifyRequest
                 .setVerifyUsage(verifyUsage)
-                .setVerifyType(VerifyType.PHONE_NUMBER));
+                .setVerifyType(VerifyType.PHONE_NUMBER)).getVerifyId();
     }
 
     @Operation(summary = "관리자 - 이메일 인증확인")
     @PostMapping("/verify/{verifyUsage:UPDATE_USER|CREATE_USER}/email")
-    public void verifyByEmail(@PathVariable VerifyUsage verifyUsage,
+    public Long verifyByEmail(@PathVariable VerifyUsage verifyUsage,
                               @NotBlank(groups = VerifyView.Number.class)
                               @JsonView(VerifyView.Number.class)
                               @RequestBody VerifyRequest verifyRequest) {
-        verifyService.verifyNumber(verifyRequest
+        return verifyService.verifyNumber(verifyRequest
                 .setVerifyUsage(verifyUsage)
-                .setVerifyType(VerifyType.EMAIL));
+                .setVerifyType(VerifyType.EMAIL)).getVerifyId();
     }
 }

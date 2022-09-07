@@ -21,6 +21,7 @@ import java.util.Date;
 @Component
 public class JwtTokenGenerator {
 
+    public static final String ACCESS_TOKEN_KEY = "accessToken";
     private final ConfigurableJWSMinter<SecurityContext> jwsMinter;
 
     public String generate(UserPrincipal userPrincipal) throws JOSEException {

@@ -20,6 +20,8 @@ import javax.validation.constraints.NotBlank;
 public class VerifyRequest {
 
     @JsonView
+    private Long verifyId;
+    @JsonView
     private VerifyUsage verifyUsage;
     @JsonView
     private VerifyType verifyType;

@@ -4,7 +4,7 @@ public interface UserView {
 
     interface Query {}
     interface Create {}
+    interface MyInfo {}
     interface Update {}
     interface List {}
-    interface MyInfo {}
 }

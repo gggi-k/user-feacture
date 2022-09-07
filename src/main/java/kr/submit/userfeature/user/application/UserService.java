@@ -10,6 +10,7 @@ import kr.submit.userfeature.user.dto.UserResponse;
 import kr.submit.userfeature.user.repository.UserRepository;
 import kr.submit.userfeature.verify.application.VerifyService;
 import kr.submit.userfeature.verify.domain.code.VerifyType;
+import kr.submit.userfeature.verify.domain.service.VerifyDomainService;
 import kr.submit.userfeature.verify.dto.VerifyRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,7 @@ public class UserService {
     private final UserDomainService userDomainService;
     private final UserRepository userRepository;
     private final VerifyService verifyService;
+    private final VerifyDomainService verifyDomainService;
 
     @Transactional(readOnly = true)
     public Page<UserResponse> findAllByQuery(UserQuery query) {
@@ -78,20 +80,22 @@ public class UserService {
         if(!Objects.equals(userEntity.getEmail(), userRequest.getEmail())) {
             if(userDomainService.isDuplicateByEmail(userRequest.getEmail())) throw new DuplicateException("이메일이 중복됩니다");
 
-            if(verifyService.findByVerifyUsageAndVerifyTypeAndVerifyValue(VerifyRequest.create()
+            if(verifyDomainService.isNotVerifiedOfVerifyUsageAndVerifyTypeAndVerifyTypeValue(VerifyRequest.create()
+                    .setVerifyId(userRequest.getEmailVerifyId())
                     .setVerifyUsage(userRequest.getVerifyUsage())
                     .setVerifyType(VerifyType.EMAIL)
-                    .setVerifyTypeValue(userRequest.getEmail())).isVerified()) throw new NotVerifiedException("이메일이 인증이 안되었습니다");
+                    .setVerifyTypeValue(userRequest.getEmail()))) throw new NotVerifiedException("이메일이 인증이 안되었습니다");
         }
 
         if(!Objects.equals(userEntity.getPhoneNumber(), userRequest.getPhoneNumber())) {
             if(userDomainService.isDuplicateByPhoneNumber(userRequest.getPhoneNumber())) throw new DuplicateException("핸드폰번호가 중복됩니다");
 
         //TODO 핸드폰 인증기능이 안되서 주석처리
-//            if(verifyService.findByVerifyUsageAndVerifyTypeAndVerifyValue(VerifyRequest.create()
+//            if(verifyDomainService.isNotVerifiedOfVerifyUsageAndVerifyTypeAndVerifyTypeValue(VerifyRequest.create()
+//                    .setVerifyId(userRequest.getEmailVerifyId())
 //                    .setVerifyUsage(userRequest.getVerifyUsage())
 //                    .setVerifyType(VerifyType.PHONE_NUMBER)
-//                    .setVerifyTypeValue(userRequest.getPhoneNumber())).isVerified()) throw new NotVerifiedException("핸드폰번호가 인증이 안되었습니다");
+//                    .setVerifyTypeValue(userRequest.getPhoneNumber()))) throw new NotVerifiedException("핸드폰번호가 인증이 안되었습니다");
         }
 
         userEntity.setEmail(userRequest.getEmail());

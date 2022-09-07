@@ -83,4 +83,8 @@ public class VerifyEntity {
     public void successVerified() {
         this.verified = true;
     }
+
+    public boolean isVerifiedOfVerifyUsageAndVerifyTypeAndVerifyTypeValue(VerifyUsage verifyUsage, VerifyType verifyType, String verifyTypeValue) {
+        return this.verifyUsage == verifyUsage && this.verifyType == verifyType && this.verifyTypeValue.equals(verifyTypeValue);
+    }
 }

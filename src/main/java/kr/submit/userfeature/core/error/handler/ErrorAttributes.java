@@ -12,7 +12,6 @@ public class ErrorAttributes extends DefaultErrorAttributes {
 
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
-        options.excluding(ErrorAttributeOptions.Include.STACK_TRACE);
         return super.getErrorAttributes(webRequest, options);
     }
 }

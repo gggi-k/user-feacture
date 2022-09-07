@@ -1,5 +1,6 @@
 package kr.submit.userfeature.core.security.handler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.JOSEException;
 import kr.submit.userfeature.core.security.dto.UserPrincipal;
 import kr.submit.userfeature.core.security.jwt.token.JwtTokenGenerator;
@@ -16,12 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private final JwtTokenGenerator jwtTokenGenerator;
+    private final ObjectMapper objectMapper;
 
     @SneakyThrows(JOSEException.class)
     @Override
@@ -32,8 +35,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         final Object principal = authentication.getPrincipal();
         if(principal instanceof UserPrincipal) {
             final UserPrincipal userPrincipal = (UserPrincipal) principal;
-            final String token = jwtTokenGenerator.generate(userPrincipal);
-            outputStream.write(token.getBytes(StandardCharsets.UTF_8));
+            outputStream.write(objectMapper.writeValueAsBytes(Map.of(JwtTokenGenerator.ACCESS_TOKEN_KEY, jwtTokenGenerator.generate(userPrincipal))));
         }
 
         outputStream.flush();
