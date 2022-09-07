@@ -85,7 +85,7 @@ public class SignUpController {
 
     @Operation(summary = "회원가입 핸드폰번호 인증확인")
     @PostMapping("/sign-up/verify/phone-number")
-    public void verifyByPhoneNumber(@NotBlank(groups = VerifyView.Verify.class)
+    public void verifyByPhoneNumber(@Validated(VerifyView.Verify.class)
                                     @JsonView(VerifyView.Verify.class)
                                     @RequestBody VerifyRequest verifyRequest) {
         verifyService.verifyNumber(verifyRequest
@@ -95,7 +95,7 @@ public class SignUpController {
 
     @Operation(summary = "회원가입 이메일 인증확인")
     @PostMapping("/sign-up/verify/email")
-    public void verifyByEmail(@NotBlank(groups = VerifyView.Verify.class)
+    public void verifyByEmail(@Validated(VerifyView.Verify.class)
                               @JsonView(VerifyView.Verify.class)
                                 @RequestBody VerifyRequest verifyRequest) {
         verifyService.verifyNumber(verifyRequest

@@ -20,6 +20,7 @@ import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.FilterChainProxy;
@@ -37,7 +38,7 @@ import java.util.Optional;
 @Import(SpringDocConfiguration.class)
 @SecurityScheme(type = SecuritySchemeType.HTTP, name = "jwtToken", scheme = "bearer", bearerFormat = "JWT")
 @OpenAPIDefinition(
-    info = @Info(title = "사용자기능", description = "사용자 로그인,회원가입 등", version = "1.0.0"),
+    info = @Info(title = "사용자기능", description = "사용자 로그인,회원가입 등<br> 관리자계정 - 아이디: 2, 비번: admin<br> 일반계정 - 아이디: 1, 비번: user", version = "1.0.0"),
     security = @SecurityRequirement(name = "jwtToken")
 )
 public class SwaggerConfig {
@@ -45,6 +46,7 @@ public class SwaggerConfig {
     private static final String LOGIN_TAG_NAME = "로그인";
 
     @Bean
+    @Description("코드로 직접 로그인 apidoc 생성")
     public OpenApiCustomiser openApiCustomiser(ApplicationContext applicationContext) {
         FilterChainProxy filterChainProxy = applicationContext.getBean(AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME, FilterChainProxy.class);
         return openAPI -> {

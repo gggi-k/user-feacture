@@ -59,7 +59,9 @@ public class AdminUserController {
     @Operation(summary = "관리자 - 사용자 생성")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public UserResponse create(@Validated(UserView.Create.class) @JsonView(UserView.Create.class) @RequestBody UserRequest userRequest) {
+    public UserResponse create(@Validated(UserView.Create.class)
+                               @JsonView(UserView.Create.class)
+                               @RequestBody UserRequest userRequest) {
         return userService.create(userRequest.setVerifyUsage(VerifyUsage.CREATE_USER));
     }
 
@@ -67,7 +69,9 @@ public class AdminUserController {
     @PutMapping("/{userId}")
     public UserResponse update(
                             @Parameter(description = "사용자아이디") @PathVariable Long userId,
-                            @Validated(UserView.Update.class) @JsonView(UserView.Update.class) @RequestBody UserRequest userRequest) {
+                            @Validated(UserView.Update.class)
+                            @JsonView(UserView.Update.class)
+                            @RequestBody UserRequest userRequest) {
         return userService.update(userRequest.setUserId(userId)
                 .setVerifyUsage(VerifyUsage.UPDATE_USER)
                 .setRoleType(RoleType.USER)
@@ -120,8 +124,8 @@ public class AdminUserController {
     @Operation(summary = "관리자 - 핸드폰번호 인증확인")
     @PostMapping("/verify/{verifyUsage:UPDATE_USER|CREATE_USER}/phone-number")
     public Long verifyByPhoneNumber(@PathVariable VerifyUsage verifyUsage,
-                                    @NotBlank(groups = VerifyView.Number.class)
-                                    @JsonView(VerifyView.Number.class)
+                                    @Validated(VerifyView.Verify.class)
+                                    @JsonView(VerifyView.Verify.class)
                                     @RequestBody VerifyRequest verifyRequest) {
         return verifyService.verifyNumber(verifyRequest
                 .setVerifyUsage(verifyUsage)
@@ -131,8 +135,8 @@ public class AdminUserController {
     @Operation(summary = "관리자 - 이메일 인증확인")
     @PostMapping("/verify/{verifyUsage:UPDATE_USER|CREATE_USER}/email")
     public Long verifyByEmail(@PathVariable VerifyUsage verifyUsage,
-                              @NotBlank(groups = VerifyView.Number.class)
-                              @JsonView(VerifyView.Number.class)
+                              @Validated(VerifyView.Verify.class)
+                              @JsonView(VerifyView.Verify.class)
                               @RequestBody VerifyRequest verifyRequest) {
         return verifyService.verifyNumber(verifyRequest
                 .setVerifyUsage(verifyUsage)

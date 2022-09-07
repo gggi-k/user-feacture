@@ -15,6 +15,7 @@ import kr.submit.userfeature.verify.dto.VerifyRequest;
 import kr.submit.userfeature.verify.dto.VerifyView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
@@ -33,7 +34,7 @@ public class UserVerifyController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/forgot-id/send/phone-number/{phoneNumber}")
     public void sendVerifyNumberByPhoneNumberForId(@Parameter(description = "핸드폰번호") @PathVariable String phoneNumber) {
-        verifyService.sendVerifyNumberByVerifyTypeValue(VerifyRequest.create()
+        userVerifyService.sendVerifyNumberByUserVerifyRequestInCaseForgotId(VerifyRequest.create()
                 .setVerifyUsage(VerifyUsage.FORGOT_ID)
                 .setVerifyType(VerifyType.PHONE_NUMBER)
                 .setVerifyTypeValue(phoneNumber)
@@ -44,7 +45,7 @@ public class UserVerifyController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/forgot-id/send/email/{email}")
     public void sendVerifyNumberByEmailForId(@Parameter(description = "이메일") @PathVariable String email) {
-        verifyService.sendVerifyNumberByVerifyTypeValue(VerifyRequest.create()
+        userVerifyService.sendVerifyNumberByUserVerifyRequestInCaseForgotId(VerifyRequest.create()
                 .setVerifyUsage(VerifyUsage.FORGOT_ID)
                 .setVerifyType(VerifyType.EMAIL)
                 .setVerifyTypeValue(email)
@@ -54,7 +55,7 @@ public class UserVerifyController {
     @Operation(summary = "아이디찾기 핸드폰번호 인증확인")
     @PostMapping("/forgot-id/verify/phone-number")
     public Long verifyByPhoneNumberForId(
-            @NotBlank(groups = VerifyView.Verify.class)
+            @Validated(VerifyView.Verify.class)
             @JsonView(VerifyView.Verify.class)
             @RequestBody VerifyRequest verifyRequest) {
         verifyService.verifyNumber(verifyRequest
@@ -67,7 +68,7 @@ public class UserVerifyController {
     @Operation(summary = "아이디찾기 이메일 인증확인")
     @PostMapping("/forgot-id/verify/email")
     public Long verifyByEmailForId(
-            @NotBlank(groups = VerifyView.Verify.class)
+            @Validated(VerifyView.Verify.class)
             @JsonView(VerifyView.Verify.class)
             @RequestBody VerifyRequest verifyRequest) {
         verifyService.verifyNumber(verifyRequest
@@ -110,7 +111,7 @@ public class UserVerifyController {
     @PostMapping("/forgot-password/verify/user/{userId}/phone-number")
     public Long verifyByPhoneNumberForPassword(
             @Parameter(description = "사용자아이디") @PathVariable Long userId,
-            @NotBlank(groups = VerifyView.Verify.class)
+            @Validated(VerifyView.Verify.class)
             @JsonView(VerifyView.Verify.class)
             @RequestBody VerifyRequest verifyRequest) {
         return verifyService.verifyNumber(verifyRequest
@@ -122,7 +123,7 @@ public class UserVerifyController {
     @PostMapping("/forgot-password/verify/user/{userId}/email")
     public Long verifyByEmailForPassword(
             @Parameter(description = "사용자아이디") @PathVariable Long userId,
-            @NotBlank(groups = VerifyView.Verify.class)
+            @Validated(VerifyView.Verify.class)
             @JsonView(VerifyView.Verify.class)
             @RequestBody VerifyRequest verifyRequest) {
         return verifyService.verifyNumber(verifyRequest
@@ -133,26 +134,30 @@ public class UserVerifyController {
     @Operation(summary = "비밀번호찾기 핸드폰번호 인증확인 후 비밀번호 변경")
     @PatchMapping("/forgot-password/verify/phone-number/change-password")
     public void changePasswordVerifyByPhoneNumberForPassword(
-            @NotBlank(groups = VerifyView.Verify.class)
-            @JsonView(VerifyView.Verify.class)
+            @Validated(VerifyView.Password.class)
+            @JsonView(VerifyView.Password.class)
             @RequestBody UserVerifyRequest userVerifyRequest) {
-        userVerifyService.verifyNumberInCaseForgotPassword(
+        userVerifyService.changePasswordInCaseForgotPassword(
                 userVerifyRequest
                     .setVerifyRequest(VerifyRequest.create()
                         .setVerifyUsage(VerifyUsage.FORGOT_PASSWORD)
-                        .setVerifyType(VerifyType.PHONE_NUMBER)));
+                        .setVerifyType(VerifyType.PHONE_NUMBER)
+                        .setVerifyTypeValue(userVerifyRequest.getVerifyTypeValue())
+                    ));
     }
 
     @Operation(summary = "비밀번호찾기 이메일 인증확인 후 비밀번호 변경")
     @PatchMapping("/forgot-password/verify/email/change-password")
     public void changePasswordVerifyByEmailForPassword(
-            @NotBlank(groups = VerifyView.Verify.class)
-            @JsonView(VerifyView.Verify.class)
+            @Validated(VerifyView.Password.class)
+            @JsonView(VerifyView.Password.class)
             @RequestBody UserVerifyRequest userVerifyRequest) {
-        userVerifyService.verifyNumberInCaseForgotPassword(
+        userVerifyService.changePasswordInCaseForgotPassword(
                 userVerifyRequest
                     .setVerifyRequest(VerifyRequest.create()
                         .setVerifyUsage(VerifyUsage.FORGOT_PASSWORD)
-                        .setVerifyType(VerifyType.EMAIL)));
+                        .setVerifyType(VerifyType.EMAIL)
+                        .setVerifyTypeValue(userVerifyRequest.getVerifyTypeValue())
+                    ));
     }
 }

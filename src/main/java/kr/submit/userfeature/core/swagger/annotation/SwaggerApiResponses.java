@@ -19,6 +19,7 @@ import java.lang.annotation.Target;
     @ApiResponse(responseCode = "401",description = "인증이 필요합니다", content = @Content),
     @ApiResponse(responseCode = "403",description = "접근이 금지되었습니다", content = @Content),
     @ApiResponse(responseCode = "404",description = "존재하지 않습니다", content = @Content),
+    @ApiResponse(responseCode = "408",description = "타임아웃되었습니다", content = @Content),
     @ApiResponse(responseCode = "409",description = "중복됩니다", content = @Content),
     @ApiResponse(responseCode = "500",description = "에러가 발생하였습니다", content = @Content)
 })

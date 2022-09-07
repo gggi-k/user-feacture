@@ -2,6 +2,7 @@ package kr.submit.userfeature.core.security.jwt.filter;
 
 import kr.submit.userfeature.core.error.BearerTokenInvalidException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;

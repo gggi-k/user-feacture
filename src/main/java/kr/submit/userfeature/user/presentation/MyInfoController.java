@@ -43,7 +43,6 @@ public class MyInfoController {
     private final UserDomainService userDomainService;
     private final SecurityUserDetailService userDetailService;
     private final VerifyService verifyService;
-    private final JwtTokenGenerator jwtTokenGenerator;
 
     @Operation(summary = "나의정보 조회")
     @GetMapping
@@ -107,7 +106,7 @@ public class MyInfoController {
 
     @Operation(summary = "나의정보 - 핸드폰번호 인증확인")
     @PostMapping("/verify/phone-number")
-    public Long verifyByPhoneNumber(@NotBlank(groups = VerifyView.Verify.class)
+    public Long verifyByPhoneNumber(@Validated(VerifyView.Verify.class)
                                     @JsonView(VerifyView.Verify.class)
                                     @RequestBody VerifyRequest verifyRequest) {
         return verifyService.verifyNumber(verifyRequest
@@ -118,7 +117,7 @@ public class MyInfoController {
 
     @Operation(summary = "나의정보 - 이메일 인증확인")
     @PostMapping("/verify/email")
-    public Long verifyByEmail(@NotBlank(groups = VerifyView.Verify.class)
+    public Long verifyByEmail(@Validated(VerifyView.Verify.class)
                               @JsonView(VerifyView.Verify.class)
                               @RequestBody VerifyRequest verifyRequest) {
         return verifyService.verifyNumber(verifyRequest

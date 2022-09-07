@@ -21,9 +21,6 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class UserRequest {
 
-    @Schema(description = "사용자아이디", example = "123")
-    @NotNull(groups = UserView.Update.class)
-    @JsonView(UserView.Update.class)
     private Long userId;
 
     @Schema(description = "패스워드", example = "dfgdf1234")
