@@ -3,7 +3,7 @@ package kr.submit.userfeature.verify.application;
 import kr.submit.userfeature.core.error.BadRequestException;
 import kr.submit.userfeature.core.error.NotFoundException;
 import kr.submit.userfeature.core.error.TimeOutException;
-import kr.submit.userfeature.core.error.handler.ServerErrorException;
+import kr.submit.userfeature.core.error.ServerErrorException;
 import kr.submit.userfeature.verify.domain.entity.VerifyEntity;
 import kr.submit.userfeature.verify.dto.VerifyRequest;
 import kr.submit.userfeature.verify.dto.VerifyResponse;

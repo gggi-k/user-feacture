@@ -1,4 +1,4 @@
-package kr.submit.userfeature.core.error.handler;
+package kr.submit.userfeature.core.error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

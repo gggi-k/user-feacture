@@ -45,6 +45,7 @@ public class SwaggerConfig {
 
     private static final String LOGIN_TAG_NAME = "로그인";
 
+    // TODO 로그인부분은 spring security로 되어있는데 응답값이 json형태가 아니라서 custom
     @Bean
     @Description("코드로 직접 로그인 apidoc 생성")
     public OpenApiCustomiser openApiCustomiser(ApplicationContext applicationContext) {
