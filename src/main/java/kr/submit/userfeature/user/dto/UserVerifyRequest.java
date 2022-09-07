@@ -32,9 +32,9 @@ public class UserVerifyRequest {
     private String password;
 
     @Schema(description = "인증아이디", example = "1")
-    @NotBlank(groups = VerifyView.Password.class)
+    @NotNull(groups = VerifyView.Password.class)
     @JsonView(VerifyView.Password.class)
-    private String verifyId;
+    private Long verifyId;
 
     @Schema(description = "인증유형값", example = "01042353334")
     @NotBlank(groups = VerifyView.Password.class)

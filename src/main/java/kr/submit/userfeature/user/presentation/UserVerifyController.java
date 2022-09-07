@@ -140,6 +140,7 @@ public class UserVerifyController {
         userVerifyService.changePasswordInCaseForgotPassword(
                 userVerifyRequest
                     .setVerifyRequest(VerifyRequest.create()
+                        .setVerifyId(userVerifyRequest.getVerifyId())
                         .setVerifyUsage(VerifyUsage.FORGOT_PASSWORD)
                         .setVerifyType(VerifyType.PHONE_NUMBER)
                         .setVerifyTypeValue(userVerifyRequest.getVerifyTypeValue())
@@ -155,6 +156,7 @@ public class UserVerifyController {
         userVerifyService.changePasswordInCaseForgotPassword(
                 userVerifyRequest
                     .setVerifyRequest(VerifyRequest.create()
+                        .setVerifyId(userVerifyRequest.getVerifyId())
                         .setVerifyUsage(VerifyUsage.FORGOT_PASSWORD)
                         .setVerifyType(VerifyType.EMAIL)
                         .setVerifyTypeValue(userVerifyRequest.getVerifyTypeValue())

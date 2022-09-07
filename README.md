@@ -39,9 +39,14 @@
 ## ERD
 
 ## How To Run?
+![0001](https://user-images.githubusercontent.com/53999997/188875861-2c5ca44d-03a2-43cc-a58d-c6274836b8e7.jpg)
 1. gradle 빌드
+![0002](https://user-images.githubusercontent.com/53999997/188875980-036fd39e-43ba-4400-aae2-1fef12758119.jpg)
 2. UserFeatureApplication 실행 (.run 폴더 밑에 실행설정 파일로 되어있어서 intellij 사용시 사용가능합니다)
+![0003](https://user-images.githubusercontent.com/53999997/188876015-39ef11b4-4e4b-46f2-9993-56ca0706d893.jpg)
 3. http://localhost:9000 이동시 자동 swagger 페이지 이동
+![0004](https://user-images.githubusercontent.com/53999997/188876073-9598c68d-9731-4ae7-90c4-0f08abb744d8.jpg)
+![0005](https://user-images.githubusercontent.com/53999997/188876090-b882dca2-86d3-489f-8911-bb239f87b420.jpg)
 
 
 ## Interesting code

@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class UserRequest {
 
+    @JsonView
     private Long userId;
 
     @Schema(description = "패스워드", example = "dfgdf1234")

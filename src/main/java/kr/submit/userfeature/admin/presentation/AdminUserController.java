@@ -62,7 +62,10 @@ public class AdminUserController {
     public UserResponse create(@Validated(UserView.Create.class)
                                @JsonView(UserView.Create.class)
                                @RequestBody UserRequest userRequest) {
-        return userService.create(userRequest.setVerifyUsage(VerifyUsage.CREATE_USER));
+        return userService.create(userRequest
+                .setVerifyUsage(VerifyUsage.CREATE_USER)
+                .setRoleType(RoleType.USER)
+        );
     }
 
     @Operation(summary = "관리자 - 사용자 수정")
@@ -97,7 +100,7 @@ public class AdminUserController {
         if(userDomainService.isDuplicateByEmail(email)) throw new DuplicateException("이메일이 중복됩니다");
     }
 
-    @Operation(summary = "관리자 - 핸드폰번호 전송")
+    @Operation(summary = "관리자 - 핸드폰번호 전송", description = "verifyUsage 는 UPDATE_USER or CREATE_USER 만 가능")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/send/{verifyUsage:UPDATE_USER|CREATE_USER}/phone-number/{phoneNumber}")
     public void sendVerifyNumberByPhoneNumber(@PathVariable VerifyUsage verifyUsage,
@@ -109,7 +112,7 @@ public class AdminUserController {
         );
     }
 
-    @Operation(summary = "관리자 - 이메일 전송")
+    @Operation(summary = "관리자 - 이메일 전송", description = "verifyUsage 는 UPDATE_USER or CREATE_USER 만 가능")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping("/send/{verifyUsage:UPDATE_USER|CREATE_USER}/email/{email}")
     public void sendVerifyNumberByEmail(@PathVariable VerifyUsage verifyUsage,
@@ -121,7 +124,7 @@ public class AdminUserController {
         );
     }
 
-    @Operation(summary = "관리자 - 핸드폰번호 인증확인")
+    @Operation(summary = "관리자 - 핸드폰번호 인증확인", description = "verifyUsage 는 UPDATE_USER or CREATE_USER 만 가능")
     @PostMapping("/verify/{verifyUsage:UPDATE_USER|CREATE_USER}/phone-number")
     public Long verifyByPhoneNumber(@PathVariable VerifyUsage verifyUsage,
                                     @Validated(VerifyView.Verify.class)
@@ -132,7 +135,7 @@ public class AdminUserController {
                 .setVerifyType(VerifyType.PHONE_NUMBER)).getVerifyId();
     }
 
-    @Operation(summary = "관리자 - 이메일 인증확인")
+    @Operation(summary = "관리자 - 이메일 인증확인", description = "verifyUsage 는 UPDATE_USER or CREATE_USER 만 가능")
     @PostMapping("/verify/{verifyUsage:UPDATE_USER|CREATE_USER}/email")
     public Long verifyByEmail(@PathVariable VerifyUsage verifyUsage,
                               @Validated(VerifyView.Verify.class)
