@@ -44,6 +44,9 @@ server:
     whitelabel:
       enabled: false
     include-stacktrace: never
+    include-message: always
+    include-exception: true
+    include-binding-errors: always
 
 
 logging:
