@@ -11,11 +11,9 @@ import kr.submit.userfeature.core.security.dto.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.util.Date;
+import java.util.UUID;
 
 // TODO JWT 생성
 @RequiredArgsConstructor
@@ -32,9 +30,11 @@ public class JwtTokenGenerator {
                 .build();
 
         final JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
+                .jwtID(UUID.randomUUID().toString())
                 .subject(userPrincipal.getUsername())
                 .issueTime(new Date())
-                .expirationTime(Date.from(LocalDateTime.now().plusHours(1).toInstant(ZoneOffset.UTC)))
+                .notBeforeTime(new Date())
+                .expirationTime(Date.from(ZonedDateTime.now(ZoneId.systemDefault()).plusHours(1).toInstant()))
                 .claim(UserPrincipal.Fields.nickname, userPrincipal.getNickname())
                 .claim(UserPrincipal.Fields.email, userPrincipal.getEmail())
                 .claim(UserPrincipal.Fields.phoneNumber, userPrincipal.getPhoneNumber())
