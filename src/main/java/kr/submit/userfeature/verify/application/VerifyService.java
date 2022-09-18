@@ -55,7 +55,7 @@ public class VerifyService {
         }
 
 
-        verifyTypeStrategyMap.getOrDefault(verifyRequest.getVerifyType().getVerifyBean(), new VerifyTypeStrategy.DefaultVerifySender())
+        verifyTypeStrategyMap.get(verifyRequest.getVerifyType().getVerifyBean())
             .send(verifyRequest.getVerifyTypeValue(), verifyRequest.getVerifyNumber());
 
         return this.create(verifyRequest);
