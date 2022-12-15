@@ -8,12 +8,6 @@
 **메일(원격배포)만발송되고, SMS발송안됨!**
 **사용자생성 및 수정시 SMS인증여부는 체크안하고 메일만체크**
 
-## LOCAL URL
-http://localhost:9000/swagger-ui/index.html
-## HEROKU URL
-https://user-features.herokuapp.com/swagger-ui/index.html
-
-![0005](https://user-images.githubusercontent.com/53999997/188876090-b882dca2-86d3-489f-8911-bb239f87b420.jpg)
 
 ## Feature
 * 로그인
@@ -92,10 +86,6 @@ VERIFY_NUMBER: 인증번호
 VERIFIED: 인증여부
 CREATED_AT: 등록일시
 UPDATED_AT: 갱신일시
-
-## Interesting code
-* **TODO 주석을 사용하여 보여주고 싶은 코드 노출 
-(intellij 사용시 TODO만 별도 조회 아니면 전체검색으로 하시면될듯싶습니다)**
   
 * jwt 설정
 * 이메일, 전화번호에 따른 전략패턴 도입
